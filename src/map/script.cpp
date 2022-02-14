@@ -30846,6 +30846,46 @@ BUILDIN_FUNC(getquesttime) {
 }
 #endif // Pandas_ScriptCommand_GetQuestTime
 
+
+/* ===========================================================
+ * 指令: checkcartweight
+ * 描述: 该指令用于查询角色手推车负重
+ * 用法: checkcartweight {<角色编号>};
+ * 返回: 成功返回角色手推车负重
+ * 作者: 人鱼姬的思念
+ * -----------------------------------------------------------*/
+#ifdef Pandas_ScriptCommand_CheckCartWeight
+BUILDIN_FUNC(checkcartweight) {
+	TBL_PC* sd;
+
+	if (!script_charid2sd(2, sd))
+		return SCRIPT_CMD_FAILURE;
+	script_pushint(st, sd->cart_weight);
+
+	return SCRIPT_CMD_SUCCESS;
+}
+#endif // Pandas_ScriptCommand_CheckCartWeight
+
+/* ===========================================================
+ * 指令: checkcartmaxweight
+ * 描述: 该指令用于查询角色手推车最大负重
+ * 用法: checkcartmaxweight {<角色编号>};
+ * 返回: 成功返回角色手推车最大负重
+ * 作者: 人鱼姬的思念
+ * -----------------------------------------------------------*/
+#ifdef Pandas_ScriptCommand_CheckCartMaxWeight
+BUILDIN_FUNC(checkcartmaxweight) {
+	TBL_PC* sd;
+
+	if (!script_charid2sd(2, sd))
+		return SCRIPT_CMD_FAILURE;
+	script_pushint(st, sd->cart_weight_max);
+
+	return SCRIPT_CMD_SUCCESS;
+}
+#endif // Pandas_ScriptCommand_CheckCartMaxWeight
+
+
 // PYHELP - SCRIPTCMD - INSERT POINT - <Section 2>
 
 /// script command definitions
@@ -31761,6 +31801,12 @@ struct script_function buildin_func[] = {
 #ifdef Pandas_ScriptCommand_GetQuestTime
 	BUILDIN_DEF(getquesttime,"i??"),					// 查询角色指定任务的时间信息 [Sola丶小克]
 #endif // Pandas_ScriptCommand_GetQuestTime
+#ifdef Pandas_ScriptCommand_CheckCartWeight
+		BUILDIN_DEF(checkcartweight, "?"),					// 该指令用于查询角色手推车负重 [人鱼姬的思念]
+#endif // Pandas_ScriptCommand_CheckCartWeight
+#ifdef Pandas_ScriptCommand_CheckCartMaxWeight
+		BUILDIN_DEF(checkcartmaxweight, "?"),					// 该指令用于查询角色手推车最大负重 [人鱼姬的思念]
+#endif // Pandas_ScriptCommand_CheckCartMaxWeight
 	// PYHELP - SCRIPTCMD - INSERT POINT - <Section 3>
 
 #include "../custom/script_def.inc"
