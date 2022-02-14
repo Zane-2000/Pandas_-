@@ -30858,8 +30858,10 @@ BUILDIN_FUNC(getquesttime) {
 BUILDIN_FUNC(checkcartweight) {
 	TBL_PC* sd;
 
-	if (!script_charid2sd(2, sd))
+	if (!script_charid2sd(2, sd)) {
+		script_pushint(st, 0);
 		return SCRIPT_CMD_FAILURE;
+	}
 	script_pushint(st, sd->cart_weight);
 
 	return SCRIPT_CMD_SUCCESS;
@@ -30877,8 +30879,10 @@ BUILDIN_FUNC(checkcartweight) {
 BUILDIN_FUNC(checkcartmaxweight) {
 	TBL_PC* sd;
 
-	if (!script_charid2sd(2, sd))
+	if (!script_charid2sd(2, sd)) {
+		script_pushint(st, 0);
 		return SCRIPT_CMD_FAILURE;
+	}
 	script_pushint(st, sd->cart_weight_max);
 
 	return SCRIPT_CMD_SUCCESS;
