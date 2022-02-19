@@ -995,3 +995,19 @@
 	@mer_y						佣兵所在的 Y 坐标
 
 --------------------------------------------------------------
+
+*OnMvpTombEvent:
+
+当玩家点击魔物墓碑后触发事件 [人鱼姬的思念]
+
+事件关联:
+	关联到点击行为的玩家
+
+携带参数:			
+	@MvpID					墓碑的MVP的ID
+	@Mvp_tomb_x				墓碑的x坐标
+	@Mvp_tomb_x				墓碑的y坐标
+	@Mvp_tomb_map$			墓碑的所有地图名
+	@Mvp_tomb_uid			墓碑的uid
+	@Mvp_killername$		杀这个墓碑的MVP的玩家名字
+	@Mvp_killtime			杀死这个MVP的时间戳

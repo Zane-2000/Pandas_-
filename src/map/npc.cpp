@@ -2391,6 +2391,17 @@ void run_tomb(struct map_session_data* sd, struct npc_data* nd)
 	clif_scriptmes(sd, nd->bl.id, buffer);
 
 	clif_scriptclose(sd, nd->bl.id);
+
+#ifdef Pandas_NpcEvent_MvpTomb
+	pc_setreg(sd, add_str("@MvpID"), nd->u.tomb.md->mob_id);
+	pc_setreg(sd, add_str("@Mvp_tomb_x"), nd->u.tomb.md->bl.x);
+	pc_setreg(sd, add_str("@Mvp_tomb_y"), nd->u.tomb.md->bl.y);
+	pc_setreg(sd, add_str("@Mvp_tomb_uid"), nd->u.tomb.md->bl.id);
+	pc_setregstr(sd, add_str("@Mvp_killername$"), nd->u.tomb.killer_name);
+	pc_setreg(sd, add_str("@Mvp_killtime"), nd->u.tomb.kill_time);
+	pc_setregstr(sd, add_str("@Mvp_tomb_map$"), map_mapid2mapname(nd->u.tomb.md->bl.m));
+	npc_script_event(sd, NPCE_MVPTOMB);
+#endif // Pandas_NpcEvent_MvpTomb
 }
 
 /*==========================================
@@ -6517,6 +6528,11 @@ const char *npc_get_script_event_name(int npce_index)
 	case NPCE_UNEQUIP:
 		return script_config.unequip_event_name;	// OnPCUnequipEvent		// 当玩家成功脱下一件装备时触发事件
 #endif // Pandas_NpcEvent_UNEQUIP
+
+#ifdef Pandas_NpcEvent_MvpTomb
+	case NPCE_MVPTOMB:
+		return script_config.mvp_tomb_event;	// OnMvpTombEvent		// 当玩家点击魔物墓碑后触发事件 [人鱼姬的思念]
+#endif // Pandas_NpcEvent_MvpTomb
 	// PYHELP - NPCEVENT - INSERT POINT - <Section 9>
 
 	/************************************************************************/
