@@ -6170,6 +6170,10 @@ bool npc_event_is_express(enum npce_event eventtype) {
 #ifdef Pandas_NpcExpress_MER_LEAVE
 		NPCX_MER_LEAVE,	// mer_leave_express_name	// OnPCMerLeaveExpress		// 当佣兵离开玩家时触发实时事件
 #endif // Pandas_NpcExpress_MER_LEAVE
+
+#ifdef Pandas_NpcExpress_PCATTACKED
+		NPCX_PCATTACKED,	// 当玩家受到伤害时触发实时事件 [人鱼姬的思念]
+#endif // Pandas_NpcExpress_PCATTACKED
 		// PYHELP - NPCEVENT - INSERT POINT - <Section 19>
 	};
 
@@ -6572,6 +6576,11 @@ const char *npc_get_script_event_name(int npce_index)
 	case NPCX_MER_LEAVE:
 		return script_config.mer_leave_express_name;	// OnPCMerLeaveExpress		// 当佣兵离开玩家时触发实时事件
 #endif // Pandas_NpcExpress_MER_LEAVE
+
+#ifdef Pandas_NpcExpress_PCATTACKED
+	case NPCX_PCATTACKED:
+		return script_config.pcattacked_express_name;	// OnPCAttackExpress		// 当玩家发起攻击并即将进行结算时触发实时事件 [聽風]
+#endif // Pandas_NpcExpress_PCATTACKED
 	// PYHELP - NPCEVENT - INSERT POINT - <Section 15>
 
 	default:

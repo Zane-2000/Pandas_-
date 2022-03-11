@@ -3899,6 +3899,24 @@ int64 skill_attack (int attack_type, struct block_list* src, struct block_list *
 	}
 #endif // Pandas_Bonus_bFinalAddClass
 
+#ifdef Pandas_NpcExpress_PCATTACKED
+	if (src && bl->type == BL_PC && damage > 0) {
+		pc_setreg(tsd, add_str("@attacked_src_type"), src->type);
+		pc_setreg(tsd, add_str("@attacked_src_gid"), src->id);
+		pc_setreg(tsd, add_str("@attacked_src_mobid"), (src->type == BL_MOB ? ((TBL_MOB*)src)->mob_id : 0));
+		pc_setreg(tsd, add_str("@attacked_target_gid"), bl->id);
+		pc_setreg(tsd, add_str("@attacked_damage_flag"), dmg.flag);
+		pc_setreg(tsd, add_str("@attacked_damage_skillid"), skill_id);
+		pc_setreg(tsd, add_str("@attacked_damage_skilllv"), skill_lv);
+		pc_setreg(tsd, add_str("@attacked_damage_right"), damage);
+		pc_setreg(tsd, add_str("@attacked_damage_left"), damage);
+		npc_script_event(tsd, NPCX_PCATTACKED);
+		dmg.damage = (int)cap_value(pc_readreg(tsd, add_str("@attacked_damage_right")), INT_MIN, INT_MAX);
+		dmg.damage2 = (int)cap_value(pc_readreg(tsd, add_str("@attacked_damage_left")), INT_MIN, INT_MAX);
+		damage = dmg.damage + dmg.damage2;
+	}
+#endif // Pandas_NpcExpress_PCATTACKED
+
 #ifdef Pandas_NpcExpress_PCATTACK
 	if (src && bl && damage > 0) {
 		// 负责执行事件的玩家对象 (事件执行者)

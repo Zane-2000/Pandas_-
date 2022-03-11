@@ -1450,6 +1450,11 @@
 		// 事件类型: Express / 事件名称: OnPCMerLeaveExpress
 		// 常量名称: NPCX_MER_LEAVE / 变量名称: mer_leave_express_name
 		#define Pandas_NpcExpress_MER_LEAVE
+
+		// 当玩家受到伤害时触发实时事件 [人鱼姬的思念]
+		// 事件类型: Express / 事件名称: OnPCAttackedExpress
+		// 常量名称: NPCX_PCATTACKED / 变量名称: pcattacked_express_name
+		#define Pandas_NpcExpress_PCATTACKED
 		// PYHELP - NPCEVENT - INSERT POINT - <Section 13>
 	#endif // Pandas_ScriptEngine_Express
 	

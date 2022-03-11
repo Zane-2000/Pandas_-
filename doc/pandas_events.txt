@@ -995,3 +995,62 @@
 	@mer_y						佣兵所在的 Y 坐标
 
 --------------------------------------------------------------
+*OnPCAttackedExpress:
+当玩家受到伤害攻击,并造成伤害时触发该实时事件 [人鱼姬的思念]
+
+事件关联:
+	关联到被攻击受到伤害的玩家
+		
+携带参数:
+	@attacked_src_type			攻击者的类型
+	@attacked_src_gid			攻击者的游戏GID
+	@attacked_src_mobid			攻击者类型如果是魔物,则返回魔物编号 
+	@attacked_target_gid		被攻击玩家的AID
+	@attacked_damage_flag		本次攻击的伤害类型 (位运算)
+	@attacked_damage_skillid	本次攻击使用的技能编号 (若为 0 则表示普通攻击)
+	@attacked_damage_skilllv	本次攻击使用的技能等级
+	
+	@attacked_damage_right		本次攻击者右手武器(如果攻击类型非玩家则为最终伤害)造成的伤害值 (该值可被修改)	
+	@attacked_damage_left		本次攻击者左手武器(如果攻击类型非玩家则为最终伤害)造成的伤害值 (该值可被修改)
+
+	
+flag类型:	
+		按攻击范围:
+			BF_SHORT:			近距离攻击
+			BF_LONG:			远距离攻击
+		按攻击类型:
+			BF_WEAPON:			武器攻击
+			BF_MAGIC:			魔法攻击
+			BF_MISC:			混合攻击
+		按技能类型:
+			BF_NORMAL:			普通攻击
+			BF_SKILL:			技能攻击
+		
+		例子:
+		----------------
+		if (@attacked_damage_flag & BF_MAGIC == BF_MAGIC) {
+			dispbottom "这是一次魔法攻击";
+		}
+		
+		if (@attacked_damage_flag & (BF_MAGIC|BF_LONG) == (BF_MAGIC|BF_LONG)) {
+			dispbottom "这是一次远距离魔法攻击";
+		}
+type类型:
+	BL_PC    = 0x001,
+	BL_MOB   = 0x002,
+	BL_PET   = 0x004,
+	BL_HOM   = 0x008,
+	BL_MER   = 0x010,
+	BL_ITEM  = 0x020,
+	BL_SKILL = 0x040,
+	BL_NPC   = 0x080,
+	BL_CHAT  = 0x100,
+	BL_ELEM  = 0x200,
+	
+注意事项:
+	只有即将发生伤害时才会触发此事件, 若为 MISS 则不触发此事件.
+
+性能警告:
+	全服建议最多只有一个 NPC 负责处理此事件.
+	全服在线玩家的任意一次实际造成伤害的攻击都将触发此事件,
+	因此请不要在事件中进行耗时操作.
